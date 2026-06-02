@@ -12,6 +12,9 @@ const resumeRoutes = require("./routes/resumeRoutes");
 const interviewRoutes = require("./routes/interviewRoutes");
 
 const app = express();
+app.get("/", (req, res) => {
+  res.send("AI Interview Backend is running");
+});
 
 app.use(cors());
 app.use(express.json());
