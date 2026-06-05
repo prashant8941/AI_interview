@@ -6,6 +6,10 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -20,15 +24,25 @@ exports.register = async (req, res) => {
       password: hashedPassword
     });
 
-    res.json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User registered successfully" });
+
   } catch (error) {
-    res.status(500).json({ message: "Registration failed" });
+    console.log("Register Error:", error.message);
+    res.status(500).json({ message: "Registration failed", error: error.message });
   }
 };
 
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT_SECRET is missing in Render env" });
+    }
 
     const user = await User.findOne({ email });
 
@@ -51,9 +65,15 @@ exports.login = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
     });
+
   } catch (error) {
-    res.status(500).json({ message: "Login failed" });
+    console.log("Login Error:", error.message);
+    res.status(500).json({ message: "Login failed", error: error.message });
   }
 };

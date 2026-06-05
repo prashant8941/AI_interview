@@ -11,18 +11,20 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://ai-interview-al9p.vercel.app"
+    "https://ai-interview-al9p.vercel.app",
+    "https://ai-interview-al9p.vercel.app/"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("AI Interview Backend is running");
 });
 
-// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/resume", require("./routes/resumeRoutes"));
 app.use("/api/interview", require("./routes/interviewRoutes"));
