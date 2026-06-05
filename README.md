@@ -287,7 +287,7 @@ This project helped me gain hands-on experience with:
 
 GitHub: https://github.com/prashant8941
 
-LinkedIn: [Add Your LinkedIHeren Profile ](https://www.linkedin.com/in/prashant-sharma-1b26062a6/)
+LinkedIn: [LinkedIn Profile ](https://www.linkedin.com/in/prashant-sharma-1b26062a6/)
 
 ---
 
